@@ -1,0 +1,23 @@
+{
+  "name": "llm-gateway",
+  "version": "1.0.0",
+  "description": "Minimal LLM gateway: virtual keys, budgets, usage logging, fallback",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "dotenv": "^18.0.1",
+    "express": "^5.2.1",
+    "sqlite": "^5.1.1",
+    "uuid": "^14.0.2"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}
