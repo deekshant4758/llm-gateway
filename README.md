@@ -136,37 +136,3 @@ before the provider call, then reconciles to actual usage afterward.
 
 See `DECISIONS.md` for the design reasoning and `AI-LOG.md` for how AI
 was used to build this.
-
-## Deploying to a real URL
-
-This was built and tested locally in a sandboxed environment without
-outbound access to hosting providers, so I did not click "deploy" on a
-live platform myself — but the app is a standard stateless Node/Express
-process with a file-based SQLite DB, so it deploys the same way
-anywhere that runs a Node process and gives you a persistent disk
-(or a mounted volume). Two concrete paths:
-
-**Render.com (free tier, easiest):**
-1. Push this repo to GitHub.
-2. New → Web Service → connect the repo.
-3. Build command: `npm install`. Start command: `node src/server.js`.
-4. Add a **Disk** (e.g. 1 GB, mounted at `/opt/render/project/src/data`)
-   so the SQLite file survives restarts — otherwise it resets on every
-   deploy, since Render's filesystem is otherwise ephemeral.
-5. Add environment variables from `.env.example` (`GROQ_API_KEY`, `GEMINI_API_KEY`, `OPENROUTER_API_KEY`,
-   etc.) in the Render dashboard's Environment tab —
-   never commit them.
-6. Deploy. Render gives you a `https://<service>.onrender.com` URL.
-
-**Fly.io (more control):**
-1. `fly launch` (accept the Node detection, skip Postgres).
-2. Add a volume for `/app/data`: `fly volumes create data --size 1`.
-3. Mount it in `fly.toml` under `[mounts]`.
-4. `fly secrets set GROQ_API_KEY=... GEMINI_API_KEY=... OPENROUTER_API_KEY=...`
-5. `fly deploy`.
-
-Either way, the two things that matter for correctness in production:
-secrets go in the platform's secret store (never the repo), and the
-SQLite file must live on a persistent volume, not ephemeral container
-storage — otherwise every redeploy silently resets every key's spend
-to zero, which would defeat the whole point of budget enforcement.

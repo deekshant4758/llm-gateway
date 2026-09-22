@@ -2,7 +2,7 @@
 
 ## AI Tools Used
 
-AI assistance was used for Express and SQLite scaffolding, provider adapter drafts, model-catalog research, budget SQL, README updates, and manual test commands. Every change was reviewed in the repository and checked with local runtime tests before being kept.
+Claude and Qwen was used for Express and SQLite scaffolding, provider adapter drafts, model-catalog research, budget SQL, README updates, and manual test commands. Every change was reviewed in the repository and checked with local runtime tests before being kept.
 
 ## Where the AI Was Wrong and How It Was Caught
 
